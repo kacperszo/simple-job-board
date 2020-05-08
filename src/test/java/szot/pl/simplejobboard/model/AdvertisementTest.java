@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 class AdvertisementTest {
 
     @Test
-    public void AdvertisementShouldContainIdField() {
+    public void advertisementShouldContainIdField() {
         final Long ID = 0L;
         Advertisement advertisement = new Advertisement();
         advertisement.setId(ID);
@@ -16,7 +16,7 @@ class AdvertisementTest {
     }
 
     @Test
-    public void AdvertisementShouldContainTitleField() {
+    public void advertisementShouldContainTitleField() {
         final String TITLE = "test title";
         Advertisement advertisement = new Advertisement();
         advertisement.setTitle(TITLE);
@@ -24,7 +24,7 @@ class AdvertisementTest {
     }
 
     @Test
-    public void AdvertisementShouldContainContentField() {
+    public void advertisementShouldContainContentField() {
         final String CONTENT = "test content";
         Advertisement advertisement = new Advertisement();
         advertisement.setContent(CONTENT);
@@ -32,7 +32,7 @@ class AdvertisementTest {
     }
 
     @Test
-    public void AdvertisementShouldContainCreationTimeField() {
+    public void advertisementShouldContainCreationTimeField() {
         final LocalDateTime CREATION_DATE = LocalDateTime.of(2020, 5, 8, 18, 0);
         Advertisement advertisement = new Advertisement();
         advertisement.setCreationDate(CREATION_DATE);
@@ -40,7 +40,7 @@ class AdvertisementTest {
     }
 
     @Test
-    public void AdvertisementShouldContainExpirationTimeField() {
+    public void advertisementShouldContainExpirationTimeField() {
         final LocalDateTime EXPIRATION_DATE = LocalDateTime.of(2020, 5, 8, 18, 0);
         Advertisement advertisement = new Advertisement();
         advertisement.setExpirationDate(EXPIRATION_DATE);
