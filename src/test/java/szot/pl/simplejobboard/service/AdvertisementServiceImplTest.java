@@ -6,8 +6,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import szot.pl.simplejobboard.model.Advertisement;
 import szot.pl.simplejobboard.repository.AdvertisementRepository;
+
+import java.util.ArrayList;
 
 class AdvertisementServiceImplTest {
 
@@ -28,6 +32,10 @@ class AdvertisementServiceImplTest {
 
     @Test
     void advertisementServiceImplShouldFindAllAdvertisement() {
+        AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
+        ArrayList<Advertisement> advertisements = new ArrayList<>();
+        Mockito.when(advertisementRepository.findAll((Pageable) Mockito.any())).thenReturn(new PageImpl<>(advertisements));
+        Assertions.assertEquals(advertisements,advertisementService.findAll(1,2).toList());
     }
 
     @Test
