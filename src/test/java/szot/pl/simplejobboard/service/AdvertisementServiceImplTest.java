@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import szot.pl.simplejobboard.model.Advertisement;
 import szot.pl.simplejobboard.repository.AdvertisementRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -38,7 +39,17 @@ class AdvertisementServiceImplTest {
         Mockito.when(advertisementRepository.findAll((Pageable) Mockito.any())).thenReturn(new PageImpl<>(advertisements));
         Assertions.assertEquals(advertisements, advertisementService.findAll(1, 2).toList());
     }
-
+    @Test
+    void advertisementServiceImplShouldFindAllNotExpiredAdvertisements(){
+        AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
+        ArrayList<Advertisement> advertisements = new ArrayList<>();
+        //add expired advertisement
+        advertisements.add(new Advertisement.Builder().expirationDate(LocalDateTime.now().minusDays(2L)).build());
+        //add not expired advertisement
+        advertisements.add(new Advertisement.Builder().expirationDate(LocalDateTime.now().plusDays(2L)).build());
+        Mockito.when(advertisementRepository.findAll((Pageable) Mockito.any())).thenReturn(new PageImpl<>(advertisements));
+        Assertions.assertEquals(1, advertisementService.findAllNotExpired(1, 2).toList().size(),"advertisement service should find all not expired advertisements");
+    }
     @Test
     void advertisementServiceImplShouldSearchAdvertisements() {
         AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
