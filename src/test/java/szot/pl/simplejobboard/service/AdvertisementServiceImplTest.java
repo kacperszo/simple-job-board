@@ -35,11 +35,15 @@ class AdvertisementServiceImplTest {
         AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
         ArrayList<Advertisement> advertisements = new ArrayList<>();
         Mockito.when(advertisementRepository.findAll((Pageable) Mockito.any())).thenReturn(new PageImpl<>(advertisements));
-        Assertions.assertEquals(advertisements,advertisementService.findAll(1,2).toList());
+        Assertions.assertEquals(advertisements, advertisementService.findAll(1, 2).toList());
     }
 
     @Test
     void advertisementServiceImplShouldSearchAdvertisement() {
+        AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
+        ArrayList<Advertisement> advertisements = new ArrayList<>();
+        Mockito.when(advertisementRepository.findAllByTitleContaining((Pageable) Mockito.any(), Mockito.any())).thenReturn(new PageImpl<>(advertisements));
+        Assertions.assertEquals(advertisements, advertisementService.search(1, 2, "test").toList());
     }
 
     @Test

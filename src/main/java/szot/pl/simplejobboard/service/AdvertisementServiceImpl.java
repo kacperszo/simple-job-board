@@ -2,7 +2,6 @@ package szot.pl.simplejobboard.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import szot.pl.simplejobboard.model.Advertisement;
 import szot.pl.simplejobboard.repository.AdvertisementRepository;
@@ -30,7 +29,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public Page<Advertisement> search(int pageNumber, int pageSize, String query) {
-        return null;
+        return advertisementRepository.findAllByTitleContaining(PageRequest.of(pageNumber, pageSize),query);
     }
 
     @Override
