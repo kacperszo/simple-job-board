@@ -57,6 +57,10 @@ class AdvertisementServiceImplTest {
 
     @Test
     void advertisementServiceImplShouldDeleteAdvertisement() {
+        AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
+        Advertisement advertisement = new Advertisement();
+        advertisementService.delete(advertisement);
+        Mockito.verify(advertisementRepository,Mockito.times(1)).delete(advertisement);
     }
 
     @Test

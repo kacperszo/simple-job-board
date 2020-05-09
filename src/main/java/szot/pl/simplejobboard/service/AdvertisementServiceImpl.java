@@ -24,12 +24,12 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public Page<Advertisement> findAll(int pageNumber, int pageSize) {
-        return advertisementRepository.findAll(PageRequest.of(pageNumber,pageSize));
+        return advertisementRepository.findAll(PageRequest.of(pageNumber, pageSize));
     }
 
     @Override
     public Page<Advertisement> search(int pageNumber, int pageSize, String query) {
-        return advertisementRepository.findAllByTitleContaining(PageRequest.of(pageNumber, pageSize),query);
+        return advertisementRepository.findAllByTitleContaining(PageRequest.of(pageNumber, pageSize), query);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public void delete(Advertisement advertisement) {
-
+        advertisementRepository.delete(advertisement);
     }
 
     @Override
