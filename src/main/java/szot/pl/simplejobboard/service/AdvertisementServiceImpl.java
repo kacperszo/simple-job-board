@@ -33,8 +33,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public Optional<Advertisement> getAdvertisementById(Long id) {
-        return Optional.empty();
+    public Optional<Advertisement> findById(Long id) {
+        return advertisementRepository.findById(id);
     }
 
     @Override

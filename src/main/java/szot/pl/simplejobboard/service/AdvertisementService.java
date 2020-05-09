@@ -46,7 +46,7 @@ public interface AdvertisementService {
      * @param id must not be null.
      * @return the advertisement with the given id or Optional#empty() if none found.
      */
-    Optional<Advertisement> getAdvertisementById(Long id);
+    Optional<Advertisement> findById(Long id);
 
     /**
      * Deletes a given advertisement.

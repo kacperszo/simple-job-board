@@ -12,6 +12,7 @@ import szot.pl.simplejobboard.model.Advertisement;
 import szot.pl.simplejobboard.repository.AdvertisementRepository;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 class AdvertisementServiceImplTest {
 
@@ -31,7 +32,7 @@ class AdvertisementServiceImplTest {
     }
 
     @Test
-    void advertisementServiceImplShouldFindAllAdvertisement() {
+    void advertisementServiceImplShouldFindAllAdvertisements() {
         AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
         ArrayList<Advertisement> advertisements = new ArrayList<>();
         Mockito.when(advertisementRepository.findAll((Pageable) Mockito.any())).thenReturn(new PageImpl<>(advertisements));
@@ -39,7 +40,7 @@ class AdvertisementServiceImplTest {
     }
 
     @Test
-    void advertisementServiceImplShouldSearchAdvertisement() {
+    void advertisementServiceImplShouldSearchAdvertisements() {
         AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
         ArrayList<Advertisement> advertisements = new ArrayList<>();
         Mockito.when(advertisementRepository.findAllByTitleContaining((Pageable) Mockito.any(), Mockito.any())).thenReturn(new PageImpl<>(advertisements));
@@ -47,7 +48,11 @@ class AdvertisementServiceImplTest {
     }
 
     @Test
-    void advertisementServiceImplShouldgetAdvertisementByIdAdvertisement() {
+    void advertisementServiceImplShouldFindById() {
+        AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
+        Optional<Advertisement> optionalAdvertisement = Optional.of(new Advertisement());
+        Mockito.when(advertisementRepository.findById(Mockito.anyLong())).thenReturn(optionalAdvertisement);
+        Assertions.assertEquals(optionalAdvertisement,advertisementService.findById(2L));
     }
 
     @Test
