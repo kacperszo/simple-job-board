@@ -64,6 +64,10 @@ class AdvertisementServiceImplTest {
     }
 
     @Test
-    void advertisementServiceImplShouldDeleteByIdAdvertisement() {
+    void advertisementServiceImplShouldDeleteById() {
+        AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
+        final Long ID = 2L;
+        advertisementService.deleteById(ID);
+        Mockito.verify(advertisementRepository,Mockito.times(1)).deleteById(ID);
     }
 }

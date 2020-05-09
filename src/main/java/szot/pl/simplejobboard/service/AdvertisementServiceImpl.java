@@ -44,6 +44,6 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public void deleteById(Long id) {
-
+        advertisementRepository.deleteById(id);
     }
 }
