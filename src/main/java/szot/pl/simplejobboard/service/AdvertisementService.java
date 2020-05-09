@@ -1,7 +1,6 @@
 package szot.pl.simplejobboard.service;
 
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
 import szot.pl.simplejobboard.model.Advertisement;
 
 import java.util.Optional;
@@ -11,7 +10,7 @@ import java.util.Optional;
  *
  * @author Kacper Szot
  */
-@Service
+
 public interface AdvertisementService {
     /**
      * Saves a given entity. Use the returned instance for further operations as the save operation might have changed the entity instance completely.
