@@ -1,12 +1,15 @@
 package szot.pl.simplejobboard.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import szot.pl.simplejobboard.model.Advertisement;
 import szot.pl.simplejobboard.repository.AdvertisementRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * implementation of the AdvertisementService
@@ -37,6 +40,20 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     public Page<Advertisement> findAll(int pageNumber, int pageSize) {
         return advertisementRepository.findAll(PageRequest.of(pageNumber, pageSize));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Page<Advertisement> findAllNotExpired(int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return advertisementRepository.findAll(PageRequest.of(pageNumber, pageSize))
+                .stream()
+                .filter(advertisement -> advertisement.getExpirationDate()
+                        .isAfter(LocalDateTime.now()))
+                .collect(Collectors.collectingAndThen(Collectors.toList(),
+                        list -> new PageImpl<Advertisement>(list, pageRequest, list.size())));
     }
 
     /**
