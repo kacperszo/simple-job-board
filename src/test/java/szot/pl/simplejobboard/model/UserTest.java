@@ -72,7 +72,7 @@ class UserTest {
         user.setAuthorities(roles);
         assertEquals(roles, user.getAuthorities());
     }
-//asd
+
     @Test
     void userBuilderShouldContainsTheIdProperty() {
         final Long id = 2L;
