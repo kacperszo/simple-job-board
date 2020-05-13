@@ -10,7 +10,6 @@ import szot.pl.simplejobboard.model.Advertisement;
  * Repository interface for the advertisements
  * @author Kacper Szot
  */
-@Repository
 public interface AdvertisementRepository extends JpaRepository<Advertisement, Long> {
     /**
      * Find all advertisements
