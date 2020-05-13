@@ -19,7 +19,7 @@ public class AdvertisementMapper implements Mapper<Advertisement, AdvertisementD
      */
     @Override
     public AdvertisementDTO mapToDto(Advertisement entity) {
-        return new AdvertisementDTO(entity.getId(), entity.getTitle(), entity.getContent(), entity.getCreationDate(), entity.getExpirationDate());
+        return new AdvertisementDTO(entity.getId(), entity.getTitle(), entity.getContent(), entity.getCreationDate(), entity.getExpirationDate(), entity.isHidden());
     }
 
     /**
@@ -30,6 +30,6 @@ public class AdvertisementMapper implements Mapper<Advertisement, AdvertisementD
      */
     @Override
     public Advertisement mapToEntity(AdvertisementDTO dto) {
-        return new Advertisement(dto.getId(), dto.getTitle(), dto.getContent(), dto.getCreationDate(), dto.getExpirationDate());
+        return new Advertisement(dto.getId(), dto.getTitle(), dto.getContent(), dto.getCreationDate(), dto.getExpirationDate(), dto.isHidden());
     }
 }

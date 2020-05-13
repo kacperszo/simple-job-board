@@ -39,8 +39,9 @@ class AdvertisementServiceImplTest {
         Mockito.when(advertisementRepository.findAll((Pageable) Mockito.any())).thenReturn(new PageImpl<>(advertisements));
         Assertions.assertEquals(advertisements, advertisementService.findAll(1, 2).toList());
     }
+
     @Test
-    void advertisementServiceImplShouldFindAllNotExpiredAdvertisements(){
+    void advertisementServiceImplShouldFindAllNotExpiredAdvertisements() {
         AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
         ArrayList<Advertisement> advertisements = new ArrayList<>();
         //add expired advertisement
@@ -48,8 +49,9 @@ class AdvertisementServiceImplTest {
         //add not expired advertisement
         advertisements.add(new Advertisement.Builder().expirationDate(LocalDateTime.now().plusDays(2L)).build());
         Mockito.when(advertisementRepository.findAll((Pageable) Mockito.any())).thenReturn(new PageImpl<>(advertisements));
-        Assertions.assertEquals(1, advertisementService.findAllNotExpired(1, 2).toList().size(),"advertisement service should find all not expired advertisements");
+        Assertions.assertEquals(1, advertisementService.findAllNotExpired(1, 2).toList().size(), "advertisement service should find all not expired advertisements");
     }
+
     @Test
     void advertisementServiceImplShouldSearchAdvertisements() {
         AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
@@ -63,7 +65,7 @@ class AdvertisementServiceImplTest {
         AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
         Optional<Advertisement> optionalAdvertisement = Optional.of(new Advertisement());
         Mockito.when(advertisementRepository.findById(Mockito.anyLong())).thenReturn(optionalAdvertisement);
-        Assertions.assertEquals(optionalAdvertisement,advertisementService.findById(2L));
+        Assertions.assertEquals(optionalAdvertisement, advertisementService.findById(2L));
     }
 
     @Test
@@ -71,7 +73,7 @@ class AdvertisementServiceImplTest {
         AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
         Advertisement advertisement = new Advertisement();
         advertisementService.delete(advertisement);
-        Mockito.verify(advertisementRepository,Mockito.times(1)).delete(advertisement);
+        Mockito.verify(advertisementRepository, Mockito.times(1)).delete(advertisement);
     }
 
     @Test
@@ -79,6 +81,35 @@ class AdvertisementServiceImplTest {
         AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
         final Long ID = 2L;
         advertisementService.deleteById(ID);
-        Mockito.verify(advertisementRepository,Mockito.times(1)).deleteById(ID);
+        Mockito.verify(advertisementRepository, Mockito.times(1)).deleteById(ID);
     }
+
+    @Test
+    void advertisementServiceImplShouldFindAllNotExpiredAndNotHiddenAdvertisements() {
+        AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
+        ArrayList<Advertisement> advertisements = new ArrayList<>();
+        //add expired advertisement
+        advertisements.add(new Advertisement.Builder().hidden(false).expirationDate(LocalDateTime.now().minusDays(2L)).build());
+        //add not expired advertisement
+        advertisements.add(new Advertisement.Builder().hidden(false).expirationDate(LocalDateTime.now().plusDays(2L)).build());
+        //add hidden advertisement
+        advertisements.add(new Advertisement.Builder().hidden(true).expirationDate(LocalDateTime.now().plusDays(2L)).build());
+        //add not hidden advertisement
+        advertisements.add(new Advertisement.Builder().hidden(false).expirationDate(LocalDateTime.now().minusDays(2L)).build());
+        Mockito.when(advertisementRepository.findAll((Pageable) Mockito.any())).thenReturn(new PageImpl<>(advertisements));
+        Assertions.assertEquals(1, advertisementService.findAllNotExpiredAndNotHidden(2, 4).toList().size(), "advertisement service should find all not expired and not hidden advertisements");
+    }
+
+    @Test
+    void advertisementServiceImplShouldFindAllNotHiddenAdvertisements() {
+        AdvertisementService advertisementService = new AdvertisementServiceImpl(advertisementRepository);
+        ArrayList<Advertisement> advertisements = new ArrayList<>();
+        //add hidden advertisement
+        advertisements.add(new Advertisement.Builder().hidden(true).build());
+        //add not hidden advertisement
+        advertisements.add(new Advertisement.Builder().hidden(false).build());
+        Mockito.when(advertisementRepository.findAll((Pageable) Mockito.any())).thenReturn(new PageImpl<>(advertisements));
+        Assertions.assertEquals(1, advertisementService.findAllNotHidden(1, 2).toList().size(), "advertisement service should find all not hidden advertisements");
+    }
+
 }

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 /**
  * advertisement data transfer object
+ *
  * @author Kacper Szot
  */
 public class AdvertisementDTO {
@@ -18,16 +19,18 @@ public class AdvertisementDTO {
     private LocalDateTime creationDate;
     @NotNull
     private LocalDateTime expirationDate;
+    private boolean hidden;
 
     public AdvertisementDTO() {
     }
 
-    public AdvertisementDTO(Long id, String title, String content, LocalDateTime creationDate, LocalDateTime expirationDate) {
+    public AdvertisementDTO(Long id, String title, String content, LocalDateTime creationDate, LocalDateTime expirationDate, boolean hidden) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.creationDate = creationDate;
         this.expirationDate = expirationDate;
+        this.hidden = hidden;
     }
 
     /**
@@ -121,6 +124,24 @@ public class AdvertisementDTO {
     }
 
     /**
+     * Get the current value of the hidden property.
+     *
+     * @return the current value of the hidden property
+     */
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    /**
+     * Set the current value of the hidden property.
+     *
+     * @param hidden the new value of the hidden property
+     */
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    /**
      * The builder class for the advertisement data transfer object class
      */
     public static class Builder {
@@ -129,6 +150,7 @@ public class AdvertisementDTO {
         private String content;
         private LocalDateTime creationDate;
         private LocalDateTime expirationDate;
+        private boolean hidden;
 
         /**
          * The method builds a new advertisement object with properties based on the builder's properties.
@@ -136,7 +158,7 @@ public class AdvertisementDTO {
          * @return new Advertisement object with properties based on builders properties
          */
         public AdvertisementDTO build() {
-            return new AdvertisementDTO(id, title, content, creationDate, expirationDate);
+            return new AdvertisementDTO(id, title, content, creationDate, expirationDate, hidden);
         }
 
         /**
@@ -191,6 +213,17 @@ public class AdvertisementDTO {
          */
         public Builder expirationDate(LocalDateTime expirationDate) {
             this.expirationDate = expirationDate;
+            return this;
+        }
+
+        /**
+         * Set the current value of the hidden property
+         *
+         * @param hidden the new value of the hidden property
+         * @return self
+         */
+        public Builder hidden(boolean hidden) {
+            this.hidden = hidden;
             return this;
         }
     }

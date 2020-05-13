@@ -1,6 +1,7 @@
 package szot.pl.simplejobboard.model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import szot.pl.simplejobboard.dto.AdvertisementDTO;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -27,16 +28,18 @@ public class Advertisement {
     private LocalDateTime creationDate;
     @NotNull
     private LocalDateTime expirationDate;
+    private boolean hidden;
 
     public Advertisement() {
     }
 
-    public Advertisement(Long id, String title, String content, LocalDateTime creationDate, LocalDateTime expirationDate) {
+    public Advertisement(Long id, String title, String content, LocalDateTime creationDate, LocalDateTime expirationDate, boolean hidden) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.creationDate = creationDate;
         this.expirationDate = expirationDate;
+        this.hidden = hidden;
     }
 
     /**
@@ -129,6 +132,24 @@ public class Advertisement {
         this.expirationDate = expirationDate;
     }
 
+    /**
+     * Get the current value of the hidden property.
+     *
+     * @return the current value of the hidden property
+     */
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    /**
+     * Set the current value of the hidden property.
+     *
+     * @param hidden the new value of the hidden property
+     */
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -151,13 +172,15 @@ public class Advertisement {
         private String content;
         private LocalDateTime creationDate;
         private LocalDateTime expirationDate;
+        private boolean hidden;
 
         /**
          * The method builds a new advertisement object with properties based on the builder's properties.
+         *
          * @return new Advertisement object with properties based on builders properties
          */
         public Advertisement build() {
-            return new Advertisement(id, title, content, creationDate, expirationDate);
+            return new Advertisement(id, title, content, creationDate, expirationDate, hidden);
         }
 
         /**
@@ -212,6 +235,17 @@ public class Advertisement {
          */
         public Builder expirationDate(LocalDateTime expirationDate) {
             this.expirationDate = expirationDate;
+            return this;
+        }
+
+        /**
+         * Set the current value of the hidden property
+         *
+         * @param hidden the new value of the hidden property
+         * @return self
+         */
+        public Builder hidden(boolean hidden) {
+            this.hidden = hidden;
             return this;
         }
     }

@@ -40,6 +40,24 @@ public interface AdvertisementService {
     Page<Advertisement> findAllNotExpired(int pageNumber, int pageSize);
 
     /**
+     * Returns a Page of advertisements that are not expired meeting the paging restriction provided in arguments
+     *
+     * @param pageNumber number of page cannot be null
+     * @param pageSize   size of page cannot be null
+     * @return a page of advertisements
+     */
+    Page<Advertisement> findAllNotExpiredAndNotHidden(int pageNumber, int pageSize);
+
+    /**
+     * Returns a Page of advertisements that are not expired meeting the paging restriction provided in arguments
+     *
+     * @param pageNumber number of page cannot be null
+     * @param pageSize   size of page cannot be null
+     * @return a page of advertisements
+     */
+    Page<Advertisement> findAllNotHidden(int pageNumber, int pageSize);
+
+    /**
      * Returns a Page of advertisements meeting the paging restriction provided in arguments and containing query in the advertisement's title.
      *
      * @param pageNumber number of page cannot be null

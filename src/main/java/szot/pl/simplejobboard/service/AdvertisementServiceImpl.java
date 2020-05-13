@@ -60,6 +60,32 @@ public class AdvertisementServiceImpl implements AdvertisementService {
      * {@inheritDoc}
      */
     @Override
+    public Page<Advertisement> findAllNotExpiredAndNotHidden(int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return advertisementRepository.findAll(PageRequest.of(pageNumber, pageSize))
+                .stream()
+                .filter(advertisement -> advertisement.getExpirationDate().isAfter(LocalDateTime.now()) && !advertisement.isHidden())
+                .collect(Collectors.collectingAndThen(Collectors.toList(),
+                        list -> new PageImpl<Advertisement>(list, pageRequest, list.size())));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Page<Advertisement> findAllNotHidden(int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        return advertisementRepository.findAll(PageRequest.of(pageNumber, pageSize))
+                .stream()
+                .filter(advertisement -> !advertisement.isHidden())
+                .collect(Collectors.collectingAndThen(Collectors.toList(),
+                        list -> new PageImpl<Advertisement>(list, pageRequest, list.size())));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Page<Advertisement> search(int pageNumber, int pageSize, String query) {
         return advertisementRepository.findAllByTitleContaining(PageRequest.of(pageNumber, pageSize), query);
     }
