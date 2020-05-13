@@ -1,5 +1,6 @@
 package szot.pl.simplejobboard.mapper;
 
+import org.springframework.stereotype.Component;
 import szot.pl.simplejobboard.dto.AdvertisementDTO;
 import szot.pl.simplejobboard.model.Advertisement;
 
@@ -8,6 +9,7 @@ import szot.pl.simplejobboard.model.Advertisement;
  *
  * @author Kacper Szot
  */
+@Component
 public class AdvertisementMapper implements Mapper<Advertisement, AdvertisementDTO> {
     /**
      * Map entity to the data transfesr objects
