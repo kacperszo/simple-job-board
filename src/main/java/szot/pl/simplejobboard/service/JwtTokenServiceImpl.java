@@ -61,7 +61,11 @@ public class JwtTokenServiceImpl implements JwtTokenService {
      */
     @Override
     public Claims getAllClaimsFromToken(String token) {
-        return null;
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     /**
