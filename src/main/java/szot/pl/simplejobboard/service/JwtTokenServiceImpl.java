@@ -95,7 +95,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
      */
     @Override
     public Date getExpirationDateFromToken(String token) {
-        return null;
+        return getClaimFromToken(token, Claims::getExpiration);
     }
 
     /**
