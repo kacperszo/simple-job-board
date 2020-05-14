@@ -105,7 +105,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
      */
     @Override
     public Boolean isTokenExpired(String token) {
-        return null;
+        return getExpirationDateFromToken(token).before(new Date(clock.millis()));
     }
 
     /**
@@ -115,7 +115,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
      */
     @Override
     public Boolean validateToken(String token, UserDetails userDetails) {
-        return null;
+        return (userDetails.getUsername().equals(getUsernameFromToken(token))) && !isTokenExpired(token);
     }
 
     /**

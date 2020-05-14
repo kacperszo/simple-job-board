@@ -3,7 +3,6 @@ package szot.pl.simplejobboard.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.impl.DefaultClaims;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import szot.pl.simplejobboard.model.Role;
 import szot.pl.simplejobboard.model.User;
@@ -66,5 +65,24 @@ class JwtTokenServiceImplTest {
         final String token = jwtTokenService.generateTokenForUser(user);
         //use only day and month, because test can fail if execution take longer then 1 second
         Assertions.assertEquals(new Date(clock.millis() + 60L * 60L * 5L * 1000L).toString().substring(0, 10), jwtTokenService.getExpirationDateFromToken(token).toString().substring(0, 10));
+    }
+
+    @Test
+    void jwtTokenServiceShouldCheckIfTokenIsValid() {
+        Clock clock = Clock.systemUTC();
+        var user = new User.Builder().username("test").build();
+        JwtTokenService jwtTokenService = new JwtTokenServiceImpl("dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdA", clock);
+        final String token = jwtTokenService.generateTokenForUser(user);
+        Assertions.assertTrue(jwtTokenService.validateToken(token, user));
+    }
+
+    @Test
+    void jwtTokenServiceShouldCheckIfTokenIsInvalid() {
+        Clock clock = Clock.systemUTC();
+        var user = new User.Builder().username("test").build();
+        JwtTokenService jwtTokenService = new JwtTokenServiceImpl("dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdA", clock);
+        final String token = jwtTokenService.generateTokenForUser(user);
+        user.setUsername("other test");
+        Assertions.assertFalse(jwtTokenService.validateToken(token, user));
     }
 }
