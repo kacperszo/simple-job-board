@@ -75,7 +75,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
      */
     @Override
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-        return null;
+        return claimsResolver.apply(getAllClaimsFromToken(token));
     }
 
     /**
