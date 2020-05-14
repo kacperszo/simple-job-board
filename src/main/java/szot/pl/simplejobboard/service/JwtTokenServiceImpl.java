@@ -125,6 +125,6 @@ public class JwtTokenServiceImpl implements JwtTokenService {
      */
     @Override
     public Key getKey() {
-        return null;
+        return key;
     }
 }

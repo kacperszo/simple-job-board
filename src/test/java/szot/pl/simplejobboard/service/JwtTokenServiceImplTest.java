@@ -2,11 +2,13 @@ package szot.pl.simplejobboard.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.impl.DefaultClaims;
+import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import szot.pl.simplejobboard.model.Role;
 import szot.pl.simplejobboard.model.User;
 
+import java.security.Key;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -84,5 +86,11 @@ class JwtTokenServiceImplTest {
         final String token = jwtTokenService.generateTokenForUser(user);
         user.setUsername("other test");
         Assertions.assertFalse(jwtTokenService.validateToken(token, user));
+    }
+    @Test
+    void jwtTokenServiceShouldGetKey(){
+        JwtTokenService jwtTokenService = new JwtTokenServiceImpl("dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdA", Clock.systemUTC());
+        Key key = Keys.hmacShaKeyFor("dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdA".getBytes());
+        Assertions.assertEquals(key,jwtTokenService.getKey());
     }
 }
