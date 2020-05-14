@@ -1,4 +1,4 @@
-package szot.pl.simplejobboard;
+package szot.pl.simplejobboard.security;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
