@@ -85,7 +85,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
      */
     @Override
     public String getUsernameFromToken(String token) {
-        return null;
+        return getClaimFromToken(token, Claims::getSubject);
     }
 
     /**

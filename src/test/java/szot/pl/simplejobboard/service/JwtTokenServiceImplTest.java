@@ -47,4 +47,13 @@ class JwtTokenServiceImplTest {
         final String token = jwtTokenService.generateTokenForUser(user);
         Assertions.assertEquals(jwtTokenService.getAllClaimsFromToken(token).getSubject(), jwtTokenService.getClaimFromToken(token, Claims::getSubject));
     }
+
+    @Test
+    void jwtTokenServiceShouldGetUsernameFromToken() {
+        Clock clock = Clock.systemUTC();
+        var user = new User.Builder().username("test").build();
+        JwtTokenService jwtTokenService = new JwtTokenServiceImpl("dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdHRlc3R0ZXN0dGVzdA", clock);
+        final String token = jwtTokenService.generateTokenForUser(user);
+        Assertions.assertEquals(user.getUsername(), jwtTokenService.getUsernameFromToken(token));
+    }
 }
