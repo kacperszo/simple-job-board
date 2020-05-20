@@ -33,6 +33,14 @@ class UserServiceImplTest {
     }
 
     @Test
+    void userServiceShouldFindUserByUsername() {
+        final String username = "test";
+        UserService userService = new UserServiceImpl(userRepository);
+        Mockito.when(userRepository.findByUsername(username)).thenReturn(Optional.of(new User.Builder().username(username).build()));
+        Assertions.assertEquals(username, userService.findUserByUsername(username).get().getUsername());
+    }
+
+    @Test
     void userServiceShouldSaveUser() {
         UserService userService = new UserServiceImpl(userRepository);
         var user = new User();

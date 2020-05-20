@@ -22,6 +22,14 @@ public interface UserService extends UserDetailsService {
     Optional<User> findUserById(Long id);
 
     /**
+     * Retrieves an user by its username.
+     *
+     * @param username cannot be null
+     * @return
+     */
+    Optional<User> findUserByUsername(String username);
+
+    /**
      * Saves a given entity. Use the returned instance for further operations as the save operation might have changed the entity instance completely.
      *
      * @param user user
