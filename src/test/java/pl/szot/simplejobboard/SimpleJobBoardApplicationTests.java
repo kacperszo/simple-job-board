@@ -1,4 +1,4 @@
-package szot.pl.simplejobboard;
+package pl.szot.simplejobboard;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
