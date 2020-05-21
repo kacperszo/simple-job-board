@@ -48,7 +48,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().httpBasic().and().authorizeRequests().antMatchers(HttpMethod.POST, "/v1/auth").permitAll()
+                .and().httpBasic().and().authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/v1/auth").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/advertisements").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/advertisements/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/v1/advertisements").authenticated()
+                .antMatchers(HttpMethod.POST, "/v1/advertisements/*").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/v1/advertisements/*").authenticated()
                 .and().addFilterBefore(apiRequestFilter, UsernamePasswordAuthenticationFilter.class).userDetailsService(userService);
         http.exceptionHandling().authenticationEntryPoint(apiAuthenticationEntryPoint);
     }

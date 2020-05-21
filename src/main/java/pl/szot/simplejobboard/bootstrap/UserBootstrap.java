@@ -9,6 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.szot.simplejobboard.model.User;
 import pl.szot.simplejobboard.service.UserService;
 
+/**
+ *  On Start up create admin account with password from properties file.
+ * @author Kacper Szot
+ */
 @Component
 public class UserBootstrap implements ApplicationListener<ContextRefreshedEvent> {
     private static final String ADMIN_USERNAME = "admin";
