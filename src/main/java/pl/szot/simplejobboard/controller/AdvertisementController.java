@@ -18,7 +18,8 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("v1/advertisements")
+@CrossOrigin
+@RequestMapping("api/v1/advertisements")
 public class AdvertisementController {
     private AdvertisementService advertisementService;
     private AdvertisementMapper advertisementMapper;
@@ -65,6 +66,12 @@ public class AdvertisementController {
         if (advertisementOptional.isEmpty()) {
             throw new NotFoundException("advertisement do not exist");
         }
+
+        advertisementOptional.get().setTitle(request.getTitle());
+        advertisementOptional.get().setContent(request.getContent());
+        advertisementOptional.get().setHidden(request.getHidden());
+        advertisementOptional.get().setExpirationDate(request.getExpirationDate());
+
         return advertisementMapper.mapToDto(advertisementService.save(advertisementOptional.get()));
     }
 
