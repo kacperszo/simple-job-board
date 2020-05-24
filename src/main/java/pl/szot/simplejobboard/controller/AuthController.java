@@ -2,10 +2,7 @@ package pl.szot.simplejobboard.controller;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.szot.simplejobboard.mapper.UserMapper;
 import pl.szot.simplejobboard.requests.LoginRequest;
 import pl.szot.simplejobboard.service.JwtTokenService;
@@ -21,7 +18,8 @@ import java.util.Map;
  * @author Kacper Szot
  */
 @RestController
-@RequestMapping("v1/auth")
+@CrossOrigin
+@RequestMapping("api/v1/auth")
 public class AuthController {
     private AuthenticationManager authenticationManager;
     private UserService userService;
