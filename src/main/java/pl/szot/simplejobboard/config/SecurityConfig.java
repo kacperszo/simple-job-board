@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().httpBasic().and().authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.POST, "api/v1/auth").permitAll()
                 .antMatchers(HttpMethod.GET, "api/v1/advertisements").permitAll()
                 .antMatchers(HttpMethod.GET, "api/v1/advertisements/*").permitAll()
